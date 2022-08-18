@@ -58,8 +58,22 @@ const getEmpleado = (id) => {
  
 };
 
-id = 10;
+
+const getSalario = (id) => { 
+   return new Promise((resolve, reject) => {
+       const salario = salarios.find(e=> e.id === id)?.salario;
+       (salario)
+         ?  resolve(salario)
+         : reject(`No existe salario para el ${id}`);
+   });
+};
+
+id = 1;
 
 getEmpleado(id)
   .then((e) => {console.log(e)})
   .catch((e) => {console.log(e)});
+
+getSalario(id)
+.then((e) => {console.log(e)})
+.catch((e) => {console.log(e)});
