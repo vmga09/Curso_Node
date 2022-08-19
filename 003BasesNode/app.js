@@ -1,7 +1,9 @@
+const helpers = require('./helpers/multiplicar2');
 
-console.clear();
-console.log("===============================================");
-for(i=1; i < 11 ; i++){
-    resultado = 5*i;
-    console.log(`5x${i} = ${resultado}`)
-}
+console.log(process.argv);
+
+const argv = process.argv[2].split('=',2)[1];
+console.log(argv);
+
+helpers.escribir(argv).then(archivo => console.log(archivo,'creado'))
+            .catch(msg => console.log('No se puede escribir el archivo'));
