@@ -7,7 +7,6 @@ class Tareas {
         const listado = [];
         Object.keys(this._listado).forEach(key =>{
            const tarea = this._listado[key];
-           console.log(tarea);
            listado.push(tarea);
         });
         return listado;
