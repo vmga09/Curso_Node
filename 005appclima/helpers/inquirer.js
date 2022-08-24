@@ -67,6 +67,33 @@ const listadoTareasBorrar = async(tareas =[]) =>{
     return id;
 }
 
+const listarLugares = async(lugares =[]) =>{
+    const choices = lugares.map((lugar,i)=> {
+        const idx = `${i +1}. `.green;
+        return {
+            value: lugar.id,
+            name: `${idx} ${lugar.nombre} `
+        }
+
+    })
+
+    choices.unshift({
+        value: '0',
+        name:'0.'.green + 'Cancelar'
+    });
+
+    const preguntas = [
+        {
+        type: 'list',
+        name : 'id',
+        message: 'Seleciones lugar:',
+        choices
+        }
+    ]
+    const {id} = await inquirer.prompt(preguntas);
+    return id;
+}
+
 const confirmar = async (message)=>{
 
     const  question = [
@@ -109,7 +136,7 @@ export  {
     inquirerMenu,
     pausa,
     leerInput,
-    listadoTareasBorrar,
+    listarLugares,
     confirmar,
     mostrarListadoCheckList
 }

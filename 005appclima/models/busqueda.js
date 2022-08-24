@@ -8,6 +8,14 @@ class Busqueda {
 
     }
 
+    get paramsMapbox(){
+        return {
+            'limit':5,
+            'language':'es',
+            'access_token':process.env.MAPBOX
+        }
+    }
+
     async ciudad(lugar = ''){
         
         
@@ -16,14 +24,17 @@ class Busqueda {
 
         const instance = axios.create ({
             baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
-            params: {
-                'limit':5,
-                'language':'es',
-                'access_token':'pk.eyJ1IjoiY3JpczdpYW5iYWNrIiwiYSI6ImNreWdndHJvcDBkdGYybm5zb216dWR6Y3AifQ.glT8w9hgQxLBh2laVu5JCg'
-            }
+            params: this.paramsMapbox
         });
-        const resp = await instance.get(); 
-        return []; // retorna los lugares
+
+        const resp = await instance.get();
+        return resp.data.features.map( lugar => ({
+            id: lugar.id,
+            nombre: lugar.place_name,
+            lng: lugar.center[0],
+            lat: lugar.center[1],
+        }));
+
        } catch (error) {
          
         return console.log(error.response.status, error.response.statusText);
