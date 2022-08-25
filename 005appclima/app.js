@@ -20,22 +20,28 @@ const main = async()=>{
             const lugares = await busquedas.ciudad(termino);
             // Selecionar el lugar
             const id = await listarLugares(lugares);
+            if (id === '0')continue;
             const lugarSel = lugares.find(l => l.id === id);
-            //console.log({lugarSel});
+            busquedas.agregarHistorial(lugarSel.nombre);
             // Datos del clima
-
+            const clima = await busquedas.clima(lugarSel.lat,lugarSel.lng);
             // Mostar resultado
-
+            console.clear();
             console.log('\nInformacion de la ciudad\n'.blue);
-            console.log('Ciudad: ',lugarSel.nombre);
+            console.log('Ciudad: ',lugarSel.nombre.green);
             console.log('Lat:',lugarSel.lat);
             console.log('Lng:',lugarSel.lng);
-            console.log('Temperatura:',);
-            console.log('Mínima:',);
-            console.log('Máxima:',);
+            console.log('Decripción:',clima.desc.green);
+            console.log('Temperatura:',clima.temp);
+            console.log('Mínima:',clima.min);
+            console.log('Máxima:',clima.max);
             break;
             case 2:
-            console.log('opcion 2')          
+            
+            busquedas.historialCapitalizado.forEach((lugar,i)=>{
+            const idx = `${i +1}.`.green
+            console.log(`${idx} ${lugar}`);
+            })        
             break;
             default:
                 break;
